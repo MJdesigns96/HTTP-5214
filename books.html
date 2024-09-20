@@ -7,23 +7,41 @@
     <title>Google Books API</title>
 </head>
 <body>
-    <h1>Books</h1>
+    <h1>Google Books API</h1>
+    <ul id="bookList">
+
+    </ul>
 
     <script>
-
         const key = "";
-        const url = "https://www.googleapis.com/books/v1/volumes?q=alchemist";
+        const url = "https://www.googleapis.com/books/v1/volumes?q=alchemist&key=";
+        fetch(url + key)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
 
-      fetch(url + key)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+                let bookList = document.getElementById("bookList");
+
+                data.items.forEach(book => {
+                    // console.log(book.volumeInfo.title);
+
+                    const title = book.volumeInfo.title;
+                    const bookId = book.id;
+                    const author = book.volumeInfo.authors[0];
+                    const previewLink = book.volumeInfo.previewLink;
+
+                    // let newBook = '<li>' + '<h2>' + title + bookId + author + '</h2>' + '</li>';
+                    let newBook = `<li> <h2> ${title} </h2> <p> id: ${bookId} author: ${author}</p> <a href="${previewLink}" target="_blank"> ${previewLink} </a> </li>`;
+
+                    bookList.innerHTML += newBook;
+                })
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     </script>
   </body>
 </html>
