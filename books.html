@@ -32,10 +32,29 @@
                     const author = book.volumeInfo.authors[0];
                     const previewLink = book.volumeInfo.previewLink;
 
-                    // let newBook = '<li>' + '<h2>' + title + bookId + author + '</h2>' + '</li>';
-                    let newBook = `<li> <h2> ${title} </h2> <p> id: ${bookId} author: ${author}</p> <a href="${previewLink}" target="_blank"> ${previewLink} </a> </li>`;
+                    // let newBook = `<li> <h2> ${title} </h2> <p>author: ${author}</p> <p>id: ${bookId}</p> <a href="${previewLink}" target="_blank"> ${previewLink} </a> </li>`;
 
-                    bookList.innerHTML += newBook;
+                    // bookList.innerHTML += newBook;
+
+                    let li = document.createElement("li");
+                    let h2 = document.createElement("h2");
+                    let h2Text = document.createTextNode(title);
+                    let p = document.createElement(`p`);
+                    let ptext = document.createTextNode(`author: ${author} `);
+                    let ptext2 = document.createTextNode(`id: ${bookId}`);
+                    let a = document.createElement("a");
+                    a.href = previewLink;
+                    a.target = "_blank";
+                    let aText = document.createTextNode(previewLink);
+                    h2.appendChild(h2Text);
+                    p.appendChild(ptext);
+                    p.appendChild(ptext2);
+                    a.appendChild(aText)
+                    li.appendChild(h2);
+                    li.appendChild(p);
+                    li.appendChild(a);
+
+                    bookList.appendChild(li);
                 })
                 
             })
